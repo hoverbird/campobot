@@ -45,6 +45,11 @@ module.exports = (robot) ->
       else
         msg.send "#{name}? Never heard of 'em"
 
+  robot.respond /fired count for @?([\w .\-_]+)/i, (msg) ->
+    name = msg.match[1].trim()
+    user = robot.brain.userForName(name)
+    msg.send("Our records show that #{name} has been fired #{user.firedCount} times.")
+
   robot.respond /@?([\w .\-_]+) is (["'\w: \-_]+)[.!]*$/i, (msg) ->
     name    = msg.match[1].trim()
     newRole = msg.match[2].trim()
@@ -92,14 +97,15 @@ module.exports = (robot) ->
   robot.respond /fire @?([\w .\-_]+)/i, (msg) ->
     name = msg.match[1].trim()
     user = robot.brain.userForName(name)
+    user.firedCount or= 0
+    newCount = user.firedCount + 1
+    user.firedCount = newCount
 
     sendoffs = [ "Pack your things", "HR has been notified", "This will be your last day",
                  "I'm gonna need your gun and your badge", "Don't let the door hit ya" ]
 
-    if user.firedCount? and Number(user.firedCount) > 0
-      user.firedCount = Number(user.fireCount) + 1
-      humanizedFiredCount = helpers.ordinalInWord(user.firedCount)
-      msg.send "That's the #{humanizedFiredCount} goddamn time, #{name}. #{msg.random sendoffs}."
+    if newCount > 1
+      # humanizedFiredCount = helpers.ordinalInWord(newCount)
+      msg.send "That's the last goddamn time, #{name}. #{msg.random sendoffs}."
     else
-      user.firedCount = 1
       msg.send "You're fired, #{name}. #{msg.random sendoffs}."
