@@ -29,7 +29,7 @@ module.exports = (robot) ->
 
   robot.router.get "/hubot/fired", (req, res) ->
     firedCounts = []
-    for user in robot.brain.data.users
+    for own key, user of robot.brain.data.users
       firedCounts.push(
         title: user.name
         value: user.firedCount
