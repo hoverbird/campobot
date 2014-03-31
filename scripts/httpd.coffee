@@ -27,6 +27,25 @@ module.exports = (robot) ->
   robot.router.post "/hubot/ping", (req, res) ->
     res.end "PONG"
 
+  robot.router.get "/hubot/fired", (req, res) ->
+    firedCounts = []
+    for user in robot.brain.data.users
+      firedCounts.push(
+        title: user.name
+        value: user.firedCount
+      )
+
+    "graph": {
+      "title" : "Fired Watch",
+      "dataSequences": [
+        "title": "Times Fired"
+        "color" : "red",
+        "refreshEveryNSeconds" : 120,
+        "datapoints" : firedCounts
+      ]
+
+    }
+
   robot.router.get "/hubot/time", (req, res) ->
     res.end "Server time is: #{new Date()}"
 
