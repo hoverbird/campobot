@@ -10,6 +10,8 @@
 #   hubot holman is an ego surfer
 #   hubot holman is not an ego surfer
 
+helpers = require './helpers'
+
 module.exports = (robot) ->
 
   if process.env.HUBOT_AUTH_ADMIN?
@@ -87,3 +89,21 @@ module.exports = (robot) ->
       else
         msg.send "I don't know anything about #{name}."
 
+  robot.respond /fire @?([\w .\-_]+)/i, (msg) ->
+    name = msg.match[1].trim()
+    users = robot.brain.usersForFuzzyName(name)
+    user = users[0] if users.length
+    sendoffs = [ "Pack your things", "HR has been notified", "This will be your last day",
+                 "I'm gonna need your gun and your badge", "Don't let the door hit ya",
+                 "It just wasn't a good fit" ]
+
+    msg.send "Finna fire #{name}"
+    if user.firedCount? and user.firedCount > 0
+      msg.send "1"
+      user.firedCount = user.fireCount + 1
+      humanizedFiredCount = helpers.ordinalInWord(user.firedCount)
+      msg.send "That's the #{humanizedFiredCount} goddamn time, #{name}. #{msg.random sendoffs}."
+    else
+      msg.send "2"
+      msg.send "You're fired, #{name}. #{msg.random sendoffs}."
+      user.firedCount = 1
