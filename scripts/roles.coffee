@@ -94,13 +94,12 @@ module.exports = (robot) ->
     user = robot.brain.userForName(name)
 
     sendoffs = [ "Pack your things", "HR has been notified", "This will be your last day",
-                 "I'm gonna need your gun and your badge", "Don't let the door hit ya",
-                 "It just wasn't a good fit" ]
+                 "I'm gonna need your gun and your badge", "Don't let the door hit ya" ]
 
     if user.firedCount? and Number(user.firedCount) > 0
       user.firedCount = Number(user.fireCount) + 1
       humanizedFiredCount = helpers.ordinalInWord(user.firedCount)
       msg.send "That's the #{humanizedFiredCount} goddamn time, #{name}. #{msg.random sendoffs}."
     else
-    user.firedCount = 1
-    msg.send "You're fired, #{name}. #{msg.random sendoffs}."
+      user.firedCount = 1
+      msg.send "You're fired, #{name}. #{msg.random sendoffs}."
