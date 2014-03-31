@@ -35,7 +35,7 @@ module.exports = (robot) ->
         value: user.firedCount
       )
 
-    "graph": {
+    graph = "graph": {
       "title" : "Fired Watch",
       "dataSequences": [
         "title": "Times Fired"
@@ -43,8 +43,8 @@ module.exports = (robot) ->
         "refreshEveryNSeconds" : 120,
         "datapoints" : firedCounts
       ]
-
     }
+    res.end JSON.stringify(graph)
 
   robot.router.get "/hubot/time", (req, res) ->
     res.end "Server time is: #{new Date()}"
