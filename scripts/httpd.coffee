@@ -32,7 +32,6 @@ module.exports = (robot) ->
     for own key, user of robot.brain.data.users
       firedCounts.push(
         title: user.name,
-        coolness: "huge!",
         value: user.firedCount
       )
 
