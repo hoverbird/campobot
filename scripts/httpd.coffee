@@ -38,7 +38,7 @@ module.exports = (robot) ->
 
     graph = "graph": {
       "title" : "Fired Watch",
-      "dataSequences": [
+      "datasequences": [
         "title": "Times Fired"
         "color" : "red",
         "refreshEveryNSeconds" : 120,
