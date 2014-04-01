@@ -48,7 +48,7 @@ module.exports = (robot) ->
   robot.respond /fired count for @?([\w .\-_]+)/i, (msg) ->
     name = msg.match[1].trim()
     user = robot.brain.userForName(name)
-    msg.send("Our records show that #{name} has been fired #{user.firedCount} times.")
+    msg.send("Our records show that #{name} has been fired for the #{helpers.ordinalInWord(user.firedCount)} (and final) time.")
 
   robot.respond /@?([\w .\-_]+) is (["'\w: \-_]+)[.!]*$/i, (msg) ->
     name    = msg.match[1].trim()
@@ -105,7 +105,7 @@ module.exports = (robot) ->
                  "I'm gonna need your gun and your badge", "Don't let the door hit ya" ]
 
     if newCount > 1
-      # humanizedFiredCount = helpers.ordinalInWord(newCount)
-      msg.send "That's the last goddamn time, #{name}. #{msg.random sendoffs}."
+      humanizedFiredCount = helpers.ordinalInWord(newCount)
+      msg.send "That's the #{humanizedFiredCount} goddamn time, #{name}. #{msg.random sendoffs}."
     else
       msg.send "You're fired, #{name}. #{msg.random sendoffs}."
