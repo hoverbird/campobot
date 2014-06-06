@@ -1,2 +1,2 @@
-["redis-brain.coffee", "shipit.coffee", "ascii.coffee", "buscemi.coffee",
+["redis-brain.coffee", "trello.coffee", "ascii.coffee", "buscemi.coffee",
 "s3-brain.coffee"]
