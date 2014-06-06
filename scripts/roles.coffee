@@ -43,9 +43,11 @@ module.exports = (robot) ->
     name = msg.match[1].trim()
 
     if name is "you"
-      msg.send "Who ain't I?"
+      msg.send "I'm Campobot. I was built to serve and protect the citizens of Campo Santo."
     else if name is robot.name
       msg.send "The best."
+    else if name is "milo"
+      msg.send "That little pipsqueak isn't even real. He's just a shitty tech demo. No class."
     else
       users = robot.brain.usersForFuzzyName(name)
       if users.length is 1
