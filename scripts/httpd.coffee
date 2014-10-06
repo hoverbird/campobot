@@ -17,10 +17,32 @@
 #   /hubot/info
 #   /hubot/ip
 
+fs = require('fs')
 spawn = require('child_process').spawn
+forrest_img = fs.readFileSync('./forrest-head.svg');
+forrest_html = fs.readFileSync('./forrest_sez.html.mustache', 'utf-8');
 
 module.exports = (robot) ->
+  getMessage = ->
+    if robot.brain.byrnesMessages
+      robot.brain.byrnesMessages[robot.brain.byrnesMessages.length - 1]
+    else
+      text: "SWEAR THAT YOU WILL HATE ALL FIRE", foregroundColor: 'green', backgroundColor: 'red'
 
+  robot.router.get "/img/forrest_sez.svg", (req, res) ->
+    res.writeHead(200, {'Content-Type': 'image/svg+xml' });
+    res.end(forrest_img);
+
+  robot.router.get "/forrest/sez", (req, res) ->
+    message = getMessage()
+    html = forrest_html.replace(/{{byrnes_message}}/g, message.text).replace(/{{foreground_color}}/g, message.foregroundColor).replace(/{{background_color}}/g, message.backgroundColor)
+    res.end html
+
+  robot.router.get "/forrest/update", (req, res) ->
+    responseData = message: getMessage()
+    res.writeHead 200, { 'Content-Type': 'application/json' }
+    res.write(JSON.stringify(responseData))
+    res.end()
   robot.router.get "/hubot/version", (req, res) ->
     res.end robot.version
 
