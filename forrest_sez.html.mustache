@@ -50,27 +50,17 @@
 				background: transparent !important;
 			}
 
-
-			hr.forrest-title {
-			    padding: 0;
-			    border: none;
-			    border-top: medium double {{foreground_color}};
-			    color: {{foreground_color}};
-			    text-align: center;
-					position: fixed;
-					left: 50%;
-					top: 14px;
+			.forrest-title {
+				text-align: center;
 			}
 
-			hr.forrest-title:after {
-			    content: "FORREST BYRNES SAYS";
-			    display: inline-block;
-			    position: relative;
-			    top: -0.7em;
-			    font-size: 1.5em;
-			    padding: 0 0.25em;
-			    /*background: white;*/
+			.forrest-title hr {
+				margin: 0px 10px 6px 10px;
+				display: inline-block;
+			    border-color: {{foreground_color}};
+				width: 30%;
 			}
+
 
 			.forrest-face {
 				height: 121px;
@@ -103,18 +93,9 @@
 
 			#forrest-sez-this {
 				color: {{foreground_color}};
-				line-height: 172px;
+				line-height: 134px;
 				font-size: 65px;
 				text-align: center;
-			}
-
-			h1 {
-				display: inline;
-				line-height: 125px;
-				font-size: 82px;
-				font-size: 5vw;
-				color: {{foreground_color}};
-				display: inline;
 			}
 		</style>
 
@@ -306,9 +287,15 @@
 					<polygon points="40.217,72.406 40.735,66.675 41.551,67.572 41.717,71.239 "/>
 					</svg>
 				</span>
-				<hr class="forrest-title">
 
-				<p class="" id="forrest-sez-this">{{byrnes_message}}</p>
+				<div class="forrest-title" style="center">
+					<hr>FORREST BYRNES SEZ<hr>
+				</div>
+
+				<p class="" id="forrest-sez-this">
+					{{byrnes_message}}
+				</p>
+
 			</div>
 		</div>
 
