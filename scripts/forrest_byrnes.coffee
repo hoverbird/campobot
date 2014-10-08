@@ -5,23 +5,20 @@ byrnesResponses = [
   "Sure."
 ]
 
-defaultForegroundColor = "green"
+defaultForegroundColor = "#C39F69"
 defaultBackgroundColor = "red"
+# old RE: /say "(.*)" ?(\w* \w*)?$/i
 
 module.exports = (robot) ->
-              # /say "(.*)" ?(\w* \w*)?$/i
-  robot.respond /say "(.*)" ?(\w* \w*)?$/i, (msg) ->
+  robot.respond /say "(.*)" ?([#a-zA-Z0-9]*)?$/i, (msg) ->
     message = text: msg.match[1].trim()
-    colorLine = msg.match[2]
-    colors = colorLine.split(' ')
+    message.backgroundColor = defaultBackgroundColor
 
-    if colors and colors.length is 2
-      message.backgroundColor = colors[0]
-      message.foregroundColor = colors[1]
-      msg.send message.backgroundColor
-      msg.send message.foregroundColor
+    color = msg.match[2]
+
+    if color
+      message.foregroundColor = color
     else
-      message.backgroundColor = defaultBackgroundColor
       message.foregroundColor = defaultForegroundColor
 
     robot.brain.byrnesMessages = robot.brain.byrnesMessages or []

@@ -41,11 +41,11 @@
 			body
 			{
 				color: {{foreground_color}};
-				/*font-family: 'Roadgeek2005SeriesD', sans-serif;*/
 				font-family: Futura, sans-serif;
 				font-size: 20px;
 				line-height: 24px;
 			}
+
 			body, html, #main
 			{
 				background: transparent !important;
@@ -60,8 +60,8 @@
 			.forrest-title hr {
 				margin: 0px 10px 6px 10px;
 				display: inline-block;
-		    border-color: {{foreground_color}};
-		    border-width: 2px;
+		        border: 0;
+		        border-top: 2px solid {{foreground_color}};
 				width: 31%;
 			}
 
@@ -70,14 +70,13 @@
 			}
 
 			#forrest-sez-this {
-				color: {{foreground_color}};
+				/*color: {{foreground_color}};*/
 				line-height: 134px;
-
-        letter-spacing: 2px;
-				/*font-size: 65px;*/
-        height: 84%;
-        width: 100%;
+				letter-spacing: 2px;
+				height: 84%;
+				width: 100%;
 				text-align: center;
+				text-transform: uppercase;
 			}
 
 			.forrest-face {
@@ -108,12 +107,12 @@
 				no-repeat;
 			}
 		</style>
-    <!-- <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" /> -->
+
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
-		<script type="text/javascript">
-    (function($) {
-        $.fn.textfill = function(options) {
+	<script type="text/javascript">
+	    (function($) {
+	        $.fn.textfill = function(options) {
             var fontSize = options.maxFontPixels;
             var ourText = $('span:visible:first', this);
             var maxHeight = $(this).height();
@@ -127,35 +126,35 @@
                 fontSize = fontSize - 1;
             } while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
             return this;
+	        }
+	    })(jQuery);
+
+
+		function refresh() {
+		  var req = new XMLHttpRequest();
+	   	console.log("Refreshing forrest...");
+
+      $.ajax({
+        url: "/forrest/update", 
+        dataType: "JSON",
+        success: function(resp) {
+          var sezThis = $('#forrest-sez-this');
+          var message = resp.message;
+          sezThis.find("span").innerText = message.text
+
+          var color = message.foregroundColor;
+          $('body').css({color: message.foregroundColor});
+          $('hr').css({"border-color": message.foregroundColor});
+          $('.forrest-face').css({stroke: message.foregroundColor, fill: message.foregroundColor});
+          
+          sezThis.textfill({ maxFontPixels: 72 });
         }
-    })(jQuery);
-
-
-		function refresh()
-		{
-		    var req = new XMLHttpRequest();
-	   	 	console.log("Refreshing forrest...");
-
-        req.onreadystatechange = function() {
-          if (req.readyState==4 && req.status==200) {
-    				$('#forrest-sez-this').innerText = JSON.parse(req.responseText).message;
-            $('#forrest-sez-this').textfill({ maxFontPixels: 72 });
-          }
-        }
-		    req.open("GET", '/forrest/update', true);
-		    req.send(null);
+      });
 		}
 
-		function init()
-		{
-			// Change page background to black if the URL contains "?desktop", for debugging while developing on your computer
-			if (document.location.href.indexOf('desktop') > -1)
-			{
-				/*document.getElementById('forrest-sez-container').style.backgroundColor = 'black';*/
-			}
-
+		function init() {
 			refresh();
-			var int=self.setInterval(function(){refresh()},30000);
+			var int = self.setInterval(function(){refresh()},30000);
 		}
 
 		</script>
