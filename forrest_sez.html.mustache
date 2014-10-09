@@ -71,12 +71,17 @@
 
 			#forrest-sez-this {
 				/*color: {{foreground_color}};*/
-				line-height: 134px;
+				line-height: 112px;
 				letter-spacing: 2px;
 				height: 84%;
 				width: 100%;
 				text-align: center;
 				text-transform: uppercase;
+			}
+
+			#forrest-sez-this span {
+			  width: 100%;
+        height: 100%;
 			}
 
 			.forrest-face {
@@ -115,15 +120,16 @@
 	        $.fn.textfill = function(options) {
             var fontSize = options.maxFontPixels;
             var ourText = $('span:visible:first', this);
-            var maxHeight = $(this).height();
+            var maxHeight = $(this).height() + 20; // hacked this + 20 in
             var maxWidth = $(this).width();
             var textHeight;
             var textWidth;
             do {
-                ourText.css('font-size', fontSize);
-                textHeight = ourText.height();
-                textWidth = ourText.width();
-                fontSize = fontSize - 1;
+              ourText.css('font-size', fontSize);
+              textHeight = ourText.height();
+              textWidth = ourText.width();
+
+              fontSize = fontSize - 1;
             } while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
             return this;
 	        }
@@ -135,19 +141,19 @@
 	   	console.log("Refreshing forrest...");
 
       $.ajax({
-        url: "/forrest/update", 
+        url: "/forrest/update",
         dataType: "JSON",
         success: function(resp) {
           var sezThis = $('#forrest-sez-this');
           var message = resp.message;
-          sezThis.find("span").innerText = message.text
+          sezThis.find("span").text(message.text);
 
           var color = message.foregroundColor;
           $('body').css({color: message.foregroundColor});
           $('hr').css({"border-color": message.foregroundColor});
           $('.forrest-face').css({stroke: message.foregroundColor, fill: message.foregroundColor});
-          
-          sezThis.textfill({ maxFontPixels: 72 });
+
+          sezThis.textfill({ maxFontPixels: 120 });
         }
       });
 		}
