@@ -27,7 +27,7 @@ module.exports = (robot) ->
     if robot.brain.byrnesMessages
       robot.brain.byrnesMessages[robot.brain.byrnesMessages.length - 1]
     else
-      text: "SWEAR THAT YOU WILL HATE ALL FIRE", foregroundColor: 'green', backgroundColor: 'red'
+      text: "SWEAR THAT YOU WILL HATE ALL FIRE", foregroundColor: '#C39F69', backgroundColor: 'red'
 
   robot.router.get "/img/forrest_sez.svg", (req, res) ->
     res.writeHead(200, {'Content-Type': 'image/svg+xml' });
