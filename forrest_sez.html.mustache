@@ -76,7 +76,7 @@
 				margin: 13px 0 5px 15px;
 				float: left;
 				height: 100%;
-				width: 91px;
+				width: 112px;
 			}
 
 			.forrest-sez-container
@@ -106,7 +106,7 @@
 	        $.fn.textfill = function(options) {
             var fontSize = options.maxFontPixels;
             var ourText = $('span:visible:first', this);
-            var maxHeight = $(this).height() + 5;
+            var maxHeight = $(this).height();
             var maxWidth = $(this).width();
             var textHeight;
             var textWidth;
@@ -142,6 +142,8 @@
 	          sezThis.textfill({ maxFontPixels: 120 });
 
 	          $('body').css({color: message.foregroundColor});
+  	          $('.forrest-title').css({color: message.foregroundColor});
+
 
 	          face.setAttribute('stroke', message.foregroundColor);
 		      face.setAttribute('fill', message.foregroundColor);
