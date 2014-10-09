@@ -76,7 +76,7 @@
 				margin: 13px 0 5px 15px;
 				float: left;
 				height: 100%;
-				width: 102px;
+				width: 91px;
 			}
 
 			.forrest-sez-container
@@ -106,7 +106,7 @@
 	        $.fn.textfill = function(options) {
             var fontSize = options.maxFontPixels;
             var ourText = $('span:visible:first', this);
-            var maxHeight = $(this).height() + 10; // hacked this + 20 in
+            var maxHeight = $(this).height() + 5;
             var maxWidth = $(this).width();
             var textHeight;
             var textWidth;
@@ -117,37 +117,39 @@
 
               fontSize = fontSize - 1;
             } while ((textHeight > maxHeight || textWidth > maxWidth) && fontSize > 3);
-            return this;
+            	return this;
 	        }
 	    })(jQuery);
 
 
 		function refresh() {
 		  var req = new XMLHttpRequest();
-	   	console.log("Refreshing forrest...");
+	   	  console.log("Refreshing Forrest...");
 
-      $.ajax({
-        url: "/forrest/update",
-        dataType: "JSON",
-        success: function(resp) {
-          var sezThis = $('#forrest-sez-this');
-          var message = resp.message;
-	      var color = message.foregroundColor;
-          var face = $('.forrest-face svg')[0];
+	      $.ajax({
+	        url: "/forrest/update",
+	        dataType: "JSON",
+	        success: function(resp) {
 
-          sezThis.find("span").text(message.text).css({color: message.foregroundColor});
-          sezThis.textfill({ maxFontPixels: 120 });
+	          var sezThis = $('#forrest-sez-this');
+	          var message = resp.message;
+		      var color = message.foregroundColor;
+	          var face = $('.forrest-face svg')[0];
 
-          $('body').css({color: message.foregroundColor});
+      	   	  console.log("Data returned Forrest...", message);
 
-          face.setAttribute('stroke', message.foregroundColor);
-	      face.setAttribute('fill', message.foregroundColor);
+	          sezThis.find("span").text(message.text).css({color: message.foregroundColor});
+	          sezThis.textfill({ maxFontPixels: 120 });
 
+	          $('body').css({color: message.foregroundColor});
 
-	      sezThis.css({color: message.foregroundColor});
-	      $('hr').css({"border-color": message.foregroundColor});
-        }
-      });
+	          face.setAttribute('stroke', message.foregroundColor);
+		      face.setAttribute('fill', message.foregroundColor);
+
+		      sezThis.css({color: message.foregroundColor});
+		      $('hr').css({"border-color": message.foregroundColor});
+	        }
+	      });
 		}
 
 		function init() {
