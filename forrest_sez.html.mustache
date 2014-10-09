@@ -41,6 +41,7 @@
 			}
 
 			.forrest-title {
+				font-family: Futura, sans-serif;
 				color: {{foreground_color}};
 				padding-top: 4px;;
 				text-align: center;
@@ -56,6 +57,7 @@
 			}
 
 			#forrest-sez-this {
+				font-family: Futura, sans-serif;
 				color: {{foreground_color}};
 				line-height: 86px;
 				letter-spacing: 2px;
@@ -74,7 +76,7 @@
 				margin: 13px 0 5px 15px;
 				float: left;
 				height: 100%;
-				width: 40px;
+				width: 102px;
 			}
 
 			.forrest-sez-container
@@ -133,11 +135,10 @@
 	      var color = message.foregroundColor;
           var face = $('.forrest-face svg')[0];
 
-          sezThis.find("span").text(message.text);
+          sezThis.find("span").text(message.text).css({color: message.foregroundColor});
           sezThis.textfill({ maxFontPixels: 120 });
 
           $('body').css({color: message.foregroundColor});
-          $('.forrest-title').css({color: message.foregroundColor});
 
           face.setAttribute('stroke', message.foregroundColor);
 	      face.setAttribute('fill', message.foregroundColor);
@@ -161,7 +162,7 @@
 
 		<div id="main">
 			<div class="forrest-sez-container">
-				<span class="forrest-face">
+				<div class="forrest-face">
 					<svg xmlns="http://www.w3.org/2000/svg" height="102px" viewBox="0 0 155 140" stroke="{{foregroundColor}}" fill="#C39F69" width="113px">
 						<path d="M87.236,107.786c-0.224-0.231-0.583-0.267-0.848-0.084c0,0-0.296,0.204-0.806,0.589c-0.142,0.115-0.316,0.231-0.507,0.361
 						c-0.107,0.073-0.219,0.148-0.345,0.237c-0.212,0.155-0.471,0.314-0.745,0.483c-0.123,0.075-0.249,0.153-0.393,0.244
@@ -313,7 +314,7 @@
 					<circle cx="92.245" cy="71.165" r="6.347"/>
 					<polygon points="40.217,72.406 40.735,66.675 41.551,67.572 41.717,71.239 "/>
 					</svg>
-				</span>
+				</div>
 
 				<div class="forrest-title" style="center">
 					<hr>FORREST BYRNES SAYS<hr>
