@@ -1,6 +1,6 @@
-# Hubot
+# Camponot
 
-This is a version of GitHub's Campfire bot, hubot. He's pretty cool.
+This is a hacked version of GitHub's Campfire bot, hubot. He's here to help folks at Campo Santo track how many lines are wired into the game, interface with Panic's Status board, and to facilitate the firing of employees (mostly for making terrible puns).
 
 This version is designed to be deployed on [Heroku][heroku]. This README was generated for you by hubot to help get you started. Definitely update and improve to talk about your own instance, how to use and deploy, what functionality he has, etc!
 
