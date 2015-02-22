@@ -1,4 +1,4 @@
-# Camponot
+# Campobot
 
 This is a hacked version of GitHub's Campfire bot, hubot. He's here to help folks at Campo Santo track how many lines are wired into the game, interface with Panic's Status board, and to facilitate the firing of employees (mostly for making terrible puns).
 
