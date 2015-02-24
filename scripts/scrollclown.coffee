@@ -1,7 +1,7 @@
 module.exports = (robot) ->
 
   robot.respond /scrollclown( me)?/i, (msg) ->
-    msg.send "http://www.mormonshare.com/sites/default/files/handouts/cg_clown-tall.gif#.png"
+    msg.send "http://phenry.s3.amazonaws.com/cg_clown-tall-624x1462.gif"
 
 
   robot.respond /scrollbuckle( me)?/i, (msg) ->
