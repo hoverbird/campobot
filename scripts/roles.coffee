@@ -11,7 +11,7 @@
 #   hubot holman is not an ego surfer
 
 module.exports = (robot) ->
-  lodash = require('lodash');
+  _ = require 'lodash'
 
    # helper function
   ordinalInWord = (cardinal) ->
@@ -37,7 +37,7 @@ module.exports = (robot) ->
     robot.logger.warning 'The HUBOT_AUTH_ADMIN environment variable is set not going to load roles.coffee, you should delete it'
     return
 
-  winners = lodash.shuffle(['jane', 'bunsen', 'sean', 'gabe', 'paolo', 'jake', 'patrick', 'olly', 'chris', 'will']);
+  winners = _.shuffle(['jane', 'bunsen', 'sean', 'gabe', 'paolo', 'jake', 'patrick', 'olly', 'chris', 'will']);
 
   getAmbiguousUserText = (users) ->
     "Be more specific, I know #{users.length} people named like that: #{(user.name for user in users).join(", ")}"
@@ -146,6 +146,6 @@ module.exports = (robot) ->
 
   robot.respond /pick( me)? a rando/i, (msg) ->
     robot.brain.winnerIndex or= 0
-    rando = lodash.shuffle(winners)[0]
+    rando = _.shuffle(winners)[0]
     msg.send "I choose you, @#{rando}."
 
