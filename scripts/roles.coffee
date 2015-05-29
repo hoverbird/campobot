@@ -11,6 +11,8 @@
 #   hubot holman is not an ego surfer
 
 module.exports = (robot) ->
+  lodash = require('lodash');
+
    # helper function
   ordinalInWord = (cardinal) ->
     ordinals = [ # and so on up to "twentieth"
@@ -34,6 +36,8 @@ module.exports = (robot) ->
   if process.env.HUBOT_AUTH_ADMIN?
     robot.logger.warning 'The HUBOT_AUTH_ADMIN environment variable is set not going to load roles.coffee, you should delete it'
     return
+
+  winners = lodash.shuffle(['jane', 'bunsen', 'sean', 'gabe', 'paolo', 'jake', 'patrick', 'olly', 'chris', 'will']);
 
   getAmbiguousUserText = (users) ->
     "Be more specific, I know #{users.length} people named like that: #{(user.name for user in users).join(", ")}"
@@ -130,3 +134,18 @@ module.exports = (robot) ->
     sendoffs = [ "Pack your things", "HR has been notified", "This will be your last day",
                  "I'm gonna need your gun and your badge", "Don't let the door hit ya" ]
     msg.send "You're fired, #{name}. #{msg.random sendoffs}."
+
+  robot.respond /pick( me)? a winner/i, (msg) ->
+    robot.brain.winnerIndex = 0 if not robot.brain.winnerIndex?
+    winner = winners[robot.brain.winnerIndex]
+    if robot.brain.winnerIndex + 1 == winners.length
+      robot.brain.winnerIndex = 0
+    else
+      robot.brain.winnerIndex++
+    msg.send "Hey @#{winner}! You are one of life's winners."
+
+  robot.respond /pick( me)? a rando/i, (msg) ->
+    robot.brain.winnerIndex or= 0
+    rando = lodash.shuffle(winners)[0]
+    msg.send "I choose you, @#{rando}."
+
