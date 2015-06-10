@@ -37,8 +37,6 @@ module.exports = (robot) ->
     robot.logger.warning 'The HUBOT_AUTH_ADMIN environment variable is set not going to load roles.coffee, you should delete it'
     return
 
-  winners = _.shuffle(['jane', 'bunsen', 'sean', 'gabe', 'paolo', 'jake', 'patrick', 'olly', 'chris', 'will']);
-
   getAmbiguousUserText = (users) ->
     "Be more specific, I know #{users.length} people named like that: #{(user.name for user in users).join(", ")}"
 
@@ -135,6 +133,9 @@ module.exports = (robot) ->
                  "I'm gonna need your gun and your badge", "Don't let the door hit ya" ]
     msg.send "You're fired, #{name}. #{msg.random sendoffs}."
 
+  # a pre-shuffled list of winners
+  winners = ['paolo', 'patrick', 'jane', 'bunsen', 'sean', 'gabe', 'jake', 'olly', 'chris', 'will']
+
   robot.respond /pick( me)? a winner/i, (msg) ->
     robot.brain.winnerIndex = 0 if not robot.brain.winnerIndex?
     winner = winners[robot.brain.winnerIndex]
@@ -142,7 +143,7 @@ module.exports = (robot) ->
       robot.brain.winnerIndex = 0
     else
       robot.brain.winnerIndex++
-    msg.send "Hey @#{winner}! You are one of life's winners."
+    msg.send "And the winner is...  ✨#{winner}💫!"
 
   robot.respond /pick( me)? a rando/i, (msg) ->
     robot.brain.winnerIndex or= 0
