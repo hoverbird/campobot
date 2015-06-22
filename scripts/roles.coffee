@@ -137,7 +137,7 @@ module.exports = (robot) ->
   winners = ['paolo', 'patrick', 'jane', 'bunsen', 'sean', 'gabe', 'jake', 'olly', 'chris', 'will']
 
   robot.respond /pick( me)? a winner/i, (msg) ->
-    robot.brain.winnerIndex or= 0
+    robot.brain.winnerIndex ?= 0
     winner = winners[robot.brain.winnerIndex]
     if robot.brain.winnerIndex + 1 == winners.length
       robot.brain.winnerIndex = 0
