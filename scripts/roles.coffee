@@ -137,16 +137,15 @@ module.exports = (robot) ->
   winners = ['paolo', 'patrick', 'jane', 'bunsen', 'sean', 'gabe', 'jake', 'olly', 'chris', 'will']
 
   robot.respond /pick( me)? a winner/i, (msg) ->
-    robot.brain.winnerIndex = 0 if not robot.brain.winnerIndex?
+    robot.brain.winnerIndex or= 0
     winner = winners[robot.brain.winnerIndex]
     if robot.brain.winnerIndex + 1 == winners.length
       robot.brain.winnerIndex = 0
     else
-      robot.brain.winnerIndex++
+      robot.brain.winnerIndex = robot.brain.winnerIndex++
     msg.send "And the winner is...  ✨#{winner}💫!"
 
   robot.respond /pick( me)? a rando/i, (msg) ->
-    robot.brain.winnerIndex or= 0
     rando = _.shuffle(winners)[0]
     msg.send "I choose you, @#{rando}."
 
