@@ -71,7 +71,7 @@ module.exports = (robot) ->
     user = robot.brain.userForName(name)
     msg.send("Our records show that #{name} has been fired #{user.firedCount} times.")
     if user.firedReasons.length
-      msg.send "Reasons: #{user.firedReasons.join(", ")}."
+      msg.send _.unescape("Reasons:\n #{user.firedReasons.join("\n")}.")
 
 
   robot.respond /@?([\w .\-_]+) is (["'\w: \-_]+)[.!]*$/i, (msg) ->
@@ -118,7 +118,7 @@ module.exports = (robot) ->
       else
         msg.send "I don't know anything about #{name}."
 
-  robot.respond /fire @?([\w.\-_]+\b)( for [\w .!?"'\-_]+)?/i, (msg) ->
+  robot.respond /fire @?([\w.\-_]+\b)( for [\w .!?,"'\-_]+)?/i, (msg) ->
     name   = msg.match[1].trim()
     reason = msg.match[2]
 
@@ -127,7 +127,7 @@ module.exports = (robot) ->
     user.firedReasons or= []
     user.firedCount++
     if reason
-      user.firedReasons.push(reason.substr(4))
+      user.firedReasons.push(_.escape(reason.substr(4)))
 
     sendoffs = [ "Pack your things", "HR has been notified", "This will be your last day",
                  "I'm gonna need your gun and your badge", "Don't let the door hit ya" ]
